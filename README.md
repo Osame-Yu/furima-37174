@@ -18,7 +18,7 @@
 ### association
 
 - has_many :items
-- belongs_to :purchaser
+- has_many :delivery
 
 ## itemsテーブル
 
@@ -27,11 +27,11 @@
 | name             | string     | null: false                    |
 | description      | text       | null: false                    |
 | price            | integer    | null: false                    |
-| category_id      | string     | null: false                    |
-| state_id         | string     | null: false                    |
-| shipping_cost_id | string     | null: false                    |
-| prefecture_id    | string     | null: false                    |
-| shipping_day_id  | string     | null: false                    |
+| category_id      | integer    | null: false                    |
+| state_id         | integer    | null: false                    |
+| shipping_cost_id | integer    | null: false                    |
+| prefecture_id    | integer    | null: false                    |
+| shipping_day_id  | integer    | null: false                    |
 | user_id          | references | null: false, foreign_key: true |
 
 ### association
