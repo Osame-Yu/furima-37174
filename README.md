@@ -16,7 +16,7 @@
 ### association
 
 - has_many :items
-- has_many :purchase
+- has_many :purchases
 
 ## itemsテーブル
 
@@ -30,14 +30,14 @@
 | shipping_cost_id | integer    | null: false                    |
 | prefecture_id    | integer    | null: false                    |
 | shipping_day_id  | integer    | null: false                    |
-| user_id          | references | null: false, foreign_key: true |
+| user             | references | null: false, foreign_key: true |
 
 ### association
 
 - belongs_to :user
 - has_one :purchase
 
-## deliveryテーブル
+## deliveriesテーブル
 
 | Column        | Type       | Options                        |
 | ------------- | ---------- | ------------------------------ |
@@ -47,16 +47,16 @@
 | address       | string     | null: false                    |
 | building      | string     |                                |
 | phone         | string     | null: false                    |
-| purchase_id   | references | null: false, foreign_key: true |
+| purchase      | references | null: false, foreign_key: true |
 
 - belongs_to :purchase
 
-## purchaseテーブル
+## purchasesテーブル
 
-| Column  | Type       | Options                        |
-| ------- | ---------- | ------------------------------ |
-| item_id | references | null: false, foreign_key: true |
-| user_id | references | null: false, foreign_key: true |
+| Column | Type       | Options                        |
+| ------ | ---------- | ------------------------------ |
+| item   | references | null: false, foreign_key: true |
+| user   | references | null: false, foreign_key: true |
 
 ### association
 
