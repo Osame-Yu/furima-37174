@@ -11,14 +11,12 @@
 | last_name          | string  | null: false               |
 | first_name_kana    | string  | null: false               |
 | last_name_kana     | string  | null: false               |
-| birth_y            | integer | null: false               |
-| birth_m            | integer | null: false               |
-| birth_d            | integer | null: false               |
+| birthday           | date    | null: false               |
 
 ### association
 
 - has_many :items
-- has_many :delivery
+- has_many :purchase
 
 ## itemsテーブル
 
@@ -44,25 +42,24 @@
 | Column        | Type       | Options                        |
 | ------------- | ---------- | ------------------------------ |
 | post_num      | string     | null: false                    |
-| prefecture_id | string     | null: false                    |
+| prefecture_id | integer    | null: false                    |
 | city          | string     | null: false                    |
 | address       | string     | null: false                    |
 | building      | string     |                                |
 | phone         | string     | null: false                    |
-| user_id       | references | null: false, foreign_key: true |
-| item_id       | references | null: false, foreign_key: true |
+| purchase_id   | references | null: false, foreign_key: true |
 
-- belongs_to :user
 - belongs_to :purchase
 
 ## purchaseテーブル
 
-| Column      | Type       | Options                        |
-| ----------- | ---------- | ------------------------------ |
-| item_id     | references | null: false, foreign_key: true |
-| delivery_id | references | null: false, foreign_key: true |
+| Column  | Type       | Options                        |
+| ------- | ---------- | ------------------------------ |
+| item_id | references | null: false, foreign_key: true |
+| user_id | references | null: false, foreign_key: true |
 
 ### association
 
 - belongs_to :item
-- belongs_to :delivery
+- belongs_to :user
+- has_one :delivery
