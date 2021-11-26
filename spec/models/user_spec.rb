@@ -10,26 +10,6 @@ RSpec.describe User, type: :model do
       it 'nickname,email,password,password_confirmation,first_name,last_name,first_name_kana,last_name_kana,birthdayの値が存在すれば登録できる' do
         expect(@user).to be_valid
       end
-      it 'passwordが6文字以上であれば登録できる' do
-        @user.password = 'a12345'
-        @user.password_confirmation = @user.password
-        expect(@user).to be_valid
-      end
-      it 'first_nameが漢字・ひらがな・全角カタカナであれば登録できる' do
-        @user.first_name = '鈴木'
-        expect(@user).to be_valid
-      end
-      it 'last_nameが漢字・ひらがな・全角カタカナであれば登録できる' do
-        @user.last_name = '史朗'
-        expect(@user).to be_valid
-      end
-      it 'first_name_kanaが全角カタカナであれば登録できる' do
-        @user.first_name_kana = 'スズキ'
-        expect(@user).to be_valid
-      end
-      it 'last_name_kanaが全角カタカナであれば登録できる' do
-        @user.last_name_kana = 'シロウ'
-      end
     end
 
     context '新規登録ができない' do
@@ -61,6 +41,7 @@ RSpec.describe User, type: :model do
       end
       it 'passwordが5文字以下であれば登録できない' do
         @user.password = 'a1234'
+        @user.password_confirmation = 'a1234'
         @user.valid?
         expect(@user.errors.full_messages).to include("Password is too short (minimum is 6 characters)")
       end
@@ -72,16 +53,19 @@ RSpec.describe User, type: :model do
       end
       it 'passwordが半角数字のみでは登録できない' do
         @user.password = '123456'
+        @user.password_confirmation = '123456'
         @user.valid?
         expect(@user.errors.full_messages).to include("Password must include both numbers and letters")
       end
       it 'passwordが半角英字のみでは登録できない' do
         @user.password = 'abcdefg'
+        @user.password_confirmation = 'abcdefg'
         @user.valid?
         expect(@user.errors.full_messages).to include("Password must include both numbers and letters")
       end
       it 'passwordに全角文字を含むと登録できない' do
         @user.password = 'あ23456'
+        @user.password_confirmation = 'あ23456'
         @user.valid?
         expect(@user.errors.full_messages).to include("Password must include both numbers and letters")
       end
