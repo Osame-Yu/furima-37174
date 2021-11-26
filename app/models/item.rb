@@ -1,4 +1,5 @@
 class Item < ApplicationRecord
+  extend ActiveHash::Associations::ActiveRecordExtensions
   belongs_to :user
   has_one_attached :image
   belongs_to :category
@@ -8,7 +9,7 @@ class Item < ApplicationRecord
   belongs_to :shipping_day
 
   validates :name, presence: true
-  validates :desdription, presence: true
+  validates :description, presence: true
   validates :price, presence: true
   validates :category_id, numericality: { other_than: 1 , message: "can't be blank"}
   validates :state_id, numericality: { other_than: 1 , message: "can't be blank"}
