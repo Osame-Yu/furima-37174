@@ -11,4 +11,7 @@ class User < ApplicationRecord
   validates :last_name_kana, presence: true, format: { with: /\A[ァ-ヶー]+\z/, message: 'must be full-width katakana characters'}
   validates :birthday, presence: true
   validates :password, format: { with: /\A(?=.*?[a-zA-Z])(?=.*?[\d])[a-zA-Z\d]+\z/, message: 'must include both numbers and letters'}
+
+  has_many :items
+  
 end
