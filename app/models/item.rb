@@ -8,15 +8,19 @@ class Item < ApplicationRecord
   belongs_to :prefecture
   belongs_to :shipping_day
 
-  validates :image, presence: true
-  validates :name, presence: true
-  validates :description, presence: true
-  validates :price, numericality: { only_integer: true, message: 'must be numbers' }
-  validates :price, presence: true,
-                    numericality: { greater_than_or_equal_to: 300, less_than_or_equal_to: 9_999_999, message: 'is out of setting range' }
-  validates :category_id, numericality: { other_than: 1, message: "can't be blank" }
-  validates :state_id, numericality: { other_than: 1, message: "can't be blank" }
-  validates :shipping_cost_id, numericality: { other_than: 1, message: "can't be blank" }
-  validates :prefecture_id, numericality: { other_than: 1, message: "can't be blank" }
-  validates :shipping_day_id, numericality: { other_than: 1, message: "can't be blank" }
+  with_options presence: true do
+    validates :image
+    validates :name
+    validates :description
+    validates :price, numericality: { only_integer: true, message: 'must be numbers' }
+  end
+  validates :price,
+            numericality: { greater_than_or_equal_to: 300, less_than_or_equal_to: 9_999_999, message: 'is out of setting range' }
+  with_options numericality: { other_than: 1, message: "can't be blank" } do
+    validates :category_id
+    validates :state_id
+    validates :shipping_cost_id
+    validates :prefecture_id
+    validates :shipping_day_id
+  end
 end
