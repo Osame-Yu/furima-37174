@@ -68,6 +68,21 @@ RSpec.describe PurchaseDelivery, type: :model do
         @purchase_delivery.valid?
         expect(@purchase_delivery.errors.full_messages).to include('Phone is too short (minimum is 10 characters)')
       end
+      it 'phoneが12文字以上では購入できない' do
+        @purchase_delivery.phone = 123_456_789_123
+        @purchase_delivery.valid?
+        expect(@purchase_delivery.errors.full_messages).to include('Phone is too long (maximum is 11 characters)')
+      end
+      it 'user_idが紐付いてなければ購入できない' do
+        @purchase_delivery.user_id = nil
+        @purchase_delivery.valid?
+        expect(@purchase_delivery.errors.full_messages).to include("User can't be blank")
+      end
+      it 'item_idが紐付いていなければ購入できない' do
+        @purchase_delivery.item_id = nil
+        @purchase_delivery.valid?
+        expect(@purchase_delivery.errors.full_messages).to include("Item can't be blank")
+      end
     end
   end
 end
