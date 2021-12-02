@@ -3,7 +3,7 @@ class PurchasesController < ApplicationController
   before_action :move_to_top, only: [:index, :create]
 
   def index
-    @item = Item.find(params[:item_id])
+    item_find
     @purchase_delivery = PurchaseDelivery.new
   end
 
@@ -14,7 +14,7 @@ class PurchasesController < ApplicationController
       @purchase_delivery.save
       redirect_to root_path
     else
-      @item = Item.find(params[:item_id])
+      item_find
       render :index
     end
   end
@@ -37,8 +37,12 @@ class PurchasesController < ApplicationController
   end
 
   def move_to_top
-    @item = Item.find(params[:item_id])
+    item_find
     @user = @item.user
     redirect_to root_path if current_user.id == @user.id || Purchase.exists?(item_id: @item.id)
+  end
+
+  def item_find
+    @item = Item.find(params[:item_id])
   end
 end
