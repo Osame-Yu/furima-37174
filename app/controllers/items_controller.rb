@@ -2,6 +2,7 @@ class ItemsController < ApplicationController
   before_action :authenticate_user!, only: [:new, :edit, :destroy]
   before_action :move_to_index, only: [:edit, :update]
   before_action :item_find, only: [:show, :edit, :update]
+  before_action :purchase_all, only: [:index, :show]
 
   def index
     @items = Item.all.order('created_at DESC')
@@ -55,5 +56,9 @@ class ItemsController < ApplicationController
 
   def item_find
     @item = Item.find(params[:id])
+  end
+
+  def purchase_all
+    @purchase = Purchase.all
   end
 end
