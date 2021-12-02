@@ -9,7 +9,8 @@ class PurchaseDelivery
     validates :post_num, format: { with: /\A[0-9]{3}-[0-9]{4}\z/, message: "must include both numbers and hyphen(-)" }
     validates :city
     validates :address
-    validates :phone, numericality: { only_integer: true, message: "must be numbers" }
+    validates :phone, numericality: { only_integer: true, message: "must be numbers" },
+                      length: { in: 10..11 }
     validates :token
   end
   validates :prefecture_id, numericality: { other_than: 1, message: "can't be blank" }
