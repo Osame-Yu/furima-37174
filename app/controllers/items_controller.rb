@@ -2,6 +2,7 @@ class ItemsController < ApplicationController
   before_action :authenticate_user!, only: [:new, :edit, :destroy]
   before_action :move_to_index, only: [:edit, :update]
   before_action :item_find, only: [:show, :edit, :update]
+  before_action :purchase_all, only: [:index, :show]
 
   def index
     @items = Item.all.order('created_at DESC')
@@ -50,12 +51,14 @@ class ItemsController < ApplicationController
   def move_to_index
     @item = Item.find(params[:id])
     @user = @item.user
-    if current_user.id != @user.id
-      redirect_to root_path
-    end
+    redirect_to root_path if current_user.id != @user.id || Purchase.exists?(item_id: @item.id)
   end
 
   def item_find
     @item = Item.find(params[:id])
+  end
+
+  def purchase_all
+    @purchase = Purchase.all
   end
 end
