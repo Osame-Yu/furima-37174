@@ -7,7 +7,7 @@ RSpec.describe PurchaseDelivery, type: :model do
     @purchase_delivery = FactoryBot.build(:purchase_delivery, user_id: user.id, item_id: item.id)
     sleep 0.1
   end
-  
+
   describe '商品購入機能' do
     context '購入できる場合' do
       it 'token,post_num,prefecture_id,city,address,building,phoneがあれば購入できる' do
@@ -18,7 +18,7 @@ RSpec.describe PurchaseDelivery, type: :model do
         expect(@purchase_delivery).to be_valid
       end
       it 'phoneが10桁の整数であれば購入できる' do
-        @purchase_delivery.phone = 1234567890
+        @purchase_delivery.phone = 1_234_567_890
         expect(@purchase_delivery).to be_valid
       end
     end
@@ -36,7 +36,7 @@ RSpec.describe PurchaseDelivery, type: :model do
       it 'post_numが(3桁の半角数字 + ハイフン(-) + 4桁の半角数字)でなければ登録できない' do
         @purchase_delivery.post_num = '12345678'
         @purchase_delivery.valid?
-        expect(@purchase_delivery.errors.full_messages).to include("Post num must include both numbers and hyphen(-)")
+        expect(@purchase_delivery.errors.full_messages).to include('Post num must include both numbers and hyphen(-)')
       end
       it 'prefecture_idが1の場合は購入できない' do
         @purchase_delivery.prefecture_id = 1
@@ -61,12 +61,12 @@ RSpec.describe PurchaseDelivery, type: :model do
       it 'phoneが半角数字でなければ購入できない' do
         @purchase_delivery.phone = 'アイウエオ'
         @purchase_delivery.valid?
-        expect(@purchase_delivery.errors.full_messages).to include("Phone must be numbers")
+        expect(@purchase_delivery.errors.full_messages).to include('Phone must be numbers')
       end
       it 'phoneが9文字以下では購入できない' do
-        @purchase_delivery.phone = 123456789
+        @purchase_delivery.phone = 123_456_789
         @purchase_delivery.valid?
-        expect(@purchase_delivery.errors.full_messages).to include("Phone is too short (minimum is 10 characters)")
+        expect(@purchase_delivery.errors.full_messages).to include('Phone is too short (minimum is 10 characters)')
       end
     end
   end

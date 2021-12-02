@@ -20,14 +20,15 @@ class PurchasesController < ApplicationController
   end
 
   private
+
   def purchase_params
     params.require(:purchase_delivery).permit(:post_num, :prefecture_id, :city, :address, :building, :phone)
-      .merge(user_id: current_user.id, item_id: params[:item_id], token: params[:token])
+          .merge(user_id: current_user.id, item_id: params[:item_id], token: params[:token])
   end
 
   def pay_item
     item = Item.find(params[:item_id])
-    Payjp.api_key = ENV["PAYJP_SECRET_KEY"]
+    Payjp.api_key = ENV['PAYJP_SECRET_KEY']
     Payjp::Charge.create(
       amount: item.price,
       card: purchase_params[:token],
@@ -38,8 +39,6 @@ class PurchasesController < ApplicationController
   def move_to_top
     @item = Item.find(params[:item_id])
     @user = @item.user
-    if current_user.id == @user.id || Purchase.exists?(item_id: @item.id)
-      redirect_to root_path
-    end
+    redirect_to root_path if current_user.id == @user.id || Purchase.exists?(item_id: @item.id)
   end
 end
