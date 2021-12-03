@@ -7,7 +7,7 @@ class Item < ApplicationRecord
   belongs_to :shipping_cost
   belongs_to :prefecture
   belongs_to :shipping_day
-  belongs_to :purchase
+  has_one :purchase
 
   with_options presence: true do
     validates :image
