@@ -2,7 +2,8 @@ class ItemForm
   include ActiveModel::Model
 
   attr_accessor :name, :description, :price, :category_id, :state_id, :shipping_cost_id, :prefecture_id, :shipping_day_id, :user_id, :image,
-                :id, :created_at, :datetime, :updated_at, :datetime
+                :id, :created_at, :datetime, :updated_at, :datetime,
+                :tag_name
 
   with_options presence: true do
     validates :image
@@ -25,6 +26,9 @@ class ItemForm
     item = Item.create(name: name, description: description, price: price, category_id: category_id, state_id: state_id,
                        shipping_cost_id: shipping_cost_id, prefecture_id: prefecture_id, shipping_day_id: shipping_day_id,
                        user_id: user_id, image: image)
+    tag = Tag.where(tag_name: tag_name).first_or_initialize
+    tag.save
+    ItemTagRelation.create(item_id: item.id, tag_id: tag.id)
   end
 
   def update(params, item)

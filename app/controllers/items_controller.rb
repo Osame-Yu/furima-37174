@@ -50,8 +50,8 @@ class ItemsController < ApplicationController
   private
 
   def item_form_params
-    params.require(:item).permit(:name, :description, :price, :category_id, :state_id, :shipping_cost_id, :prefecture_id,
-                                 :shipping_day_id, :image).merge(user_id: current_user.id)
+    params.require(:item_form).permit(:name, :description, :price, :category_id, :state_id, :shipping_cost_id, :prefecture_id,
+                                 :shipping_day_id, :image, :tag_name).merge(user_id: current_user.id)
   end
 
   def move_to_index
