@@ -9,11 +9,11 @@ class ItemsController < ApplicationController
   end
 
   def new
-    @item_form = Item.new
+    @item_form = ItemForm.new
   end
 
   def create
-    @item_form = Item.new(item_form_params)
+    @item_form = ItemForm.new(item_form_params)
     if @item_form.valid?
       @item_form.save
       redirect_to root_path
@@ -28,6 +28,7 @@ class ItemsController < ApplicationController
   def edit
     item_attributes = @item.attributes
     @item_form = ItemForm.new(item_attributes)
+    @item_form.tag_name = @item.tags&.first&.tag_name
   end
 
   def update
