@@ -8,4 +8,6 @@ class Item < ApplicationRecord
   belongs_to :prefecture
   belongs_to :shipping_day
   has_one :purchase
+  has_many :item_tag_relations
+  has_many :tags, through: :item_tag_relations
 end

@@ -43,8 +43,7 @@
 
 | Column   | Type       | Options                        |
 | -------- | ---------- | ------------------------------ |
-| tag_name | string     | null: false,                   |
-| item     | references | null: false, foreign_key: true |
+| tag_name | string     | null: false, uniqueness: true  |
 
 ### association
 
