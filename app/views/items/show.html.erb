@@ -48,6 +48,10 @@
           <td class="detail-value"><%= @item.category.name %></td>
         </tr>
         <tr>
+          <th class="detail-item">登録タグ</th>
+          <td class="detail-value"><%= @item.tags&.first&.tag_name %></td>
+        </tr>
+        <tr>
           <th class="detail-item">商品の状態</th>
           <td class="detail-value"><%= @item.state.name %></td>
         </tr>
