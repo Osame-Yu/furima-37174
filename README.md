@@ -36,6 +36,31 @@
 
 - belongs_to :user
 - has_one :purchase
+- has_many :tags, through :item_tag_relations
+- has_many :item_tag_relations
+
+## tagsテーブル
+
+| Column   | Type       | Options                        |
+| -------- | ---------- | ------------------------------ |
+| tag_name | string     | null: false, uniqueness: true  |
+
+### association
+
+- has_many :items, through :item_tag_relations
+- has_many :item_tag_relations
+
+## item_tag_relationsテーブル
+
+| Column | Type       | Options                        |
+| ------ | ---------- | ------------------------------ |
+| item   | references | null: false, foreign_key: true |
+| tag    | references | null: false, foreign_key: true |
+
+### association
+
+- belongs_to :item
+- belongs_to :tag
 
 ## deliveriesテーブル
 

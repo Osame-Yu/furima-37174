@@ -109,6 +109,10 @@
   margin-top: 2vh;
 }
 
+.items-tag{
+  margin-top: 2vh;
+}
+
 /* /商品名と商品説明 */
 
 /* 商品の詳細など */
@@ -226,4 +230,13 @@
 
 .inc {
   font-size: 13px;
+}
+
+.child {
+  margin: 2px;
+  border: 1px solid #bbbbff;
+  border-radius: 4px;
+  background-color: #FFF;
+  padding: 5px 16px;
+  font-size: 18px;
 }
