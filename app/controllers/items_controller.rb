@@ -80,6 +80,10 @@ class ItemsController < ApplicationController
   end
 
   def set_q
+    if params[:q]&.dig(:name_or_description_or_tags_tag_name)
+      squished_keyword = params[:q][:name_or_description_or_tags_tag_name].squish
+      params[:q][:name_or_description_or_tags_tag_name_cont_any] = squished_keyword.split(" ")
+    end
     @q = Item.ransack(params[:q])
   end
 end
