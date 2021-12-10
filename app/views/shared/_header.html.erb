@@ -2,17 +2,38 @@
   <div class='search-bar-contents'>
     <%= link_to image_tag("furima-logo-color.png", class:"furima-icon"), "/" %>
     <%= search_form_for @q, url: search_items_path, html: {id: "detailed-search-form" }, class:"search-form" do |f| %>
-      <%= f.search_field :name_or_description_or_tags_tag_name, class: 'input-box', placeholder: 'キーワードから探す', value: params[:q]&.dig(:name_or_description_or_tags_tag_name) %>
-      <div class="search-button">
-        <%= image_submit_tag "search.png", class:"search-icon" %>
+      <div class="search-input">
+        <%= f.search_field :name_or_description_or_tags_tag_name, class: 'input-box', placeholder: 'キーワードから探す', value: params[:q]&.dig(:name_or_description_or_tags_tag_name) %>
+        <div class="search-button">
+          <%= image_submit_tag "search.png", class:"search-icon" %>
+        </div>
       </div>
+      <div class="detail-search-open" id="pull-down-btn">詳細検索▼</div>
+        <div class="hidden" id="pull-down">
+          <div class="detail-search">
+            <div class="category-search">
+              <%= f.label :category_id_in, 'カテゴリー' %>
+              <br>
+              <%= f.collection_check_boxes(:category_id_in, Category.all, :id, :name, {include_blank: "---"}) %>
+            </div>
+            <div class="user-search">
+              <%= f.label :user_nickname_cont, '出品者名' %>
+              <br>
+              <%= f.text_field :user_nickname_cont, placeholder: '出品者名' %>
+            </div>
+            <div class="price-search">
+              <%= f.label :price_gteq, '価格'%>
+              <br>
+              <%= f.number_field :price_gteq %> 円以上
+              <br>
+              <%= f.number_field :price_lteq %> 円以下
+            </div>
+          </div>
+        </div>
+      
     <% end %>
   </div>
   <div class='nav'>
-    <ul class='lists-left'>
-      <li><%= link_to 'カテゴリー', "#", class: "category-list" %></li>
-      <li><%= link_to 'ブランド', "#", class: "brand-list" %></li>
-    </ul>
     <ul class='lists-right'>
       <% if user_signed_in? %>
         <li><%= link_to current_user.nickname, "#", class: "user-nickname" %></li>

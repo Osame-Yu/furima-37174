@@ -4,9 +4,10 @@
 
 .top-page-header {
   width: 100vw;
-  padding: 2vh 15vw;
+  padding: 4vh 15vw;
   display: flex;
   flex-direction: column;
+
 }
 
 .search-bar-contents {
@@ -23,26 +24,67 @@
 .search-form {
   width: 65vw;
   height: 5vh;
-  display: flex;
   margin-bottom: 5px;
 }
 
-.search-form>.input-box {
+.search-input {
+  display: flex;
+}
+
+.search-input>.input-box {
   width: 100%;
   height: 5vh;
   padding-left: 10px;
 }
 
 .search-button {
-  width: 5vh;
+  width: 4vw;
   border: 0;
   cursor: pointer;
   background-color: #3ccace;
-  padding: 8px;
+  padding: 1px;
 }
 
 .search-icon {
   width: 100%;
+}
+
+.detail-search-open{
+  width: 25%;
+  border-radius: 4px;
+}
+
+.hidden{
+  display: none;
+}
+
+.detail-search {
+  position:relative;
+  z-index: 100000000;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  background-color: azure;
+  border-radius: 4px;
+  padding: 10px 20px;
+}
+
+.category-search {
+  width: 300px;
+  padding-right: 10px;
+}
+
+#q_user_nickname_cont, #q_price_gteq, #q_price_lteq{
+  width: 90%;
+}
+
+.user-search {
+  width: 20%;
+}
+
+.price-search {
+  width: 30%;
 }
 
 .nav {
@@ -50,7 +92,7 @@
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
-  width: 100%;
+  width: 25%;
   padding: 1vh 0;
 }
 
@@ -59,24 +101,6 @@
   min-width: 200px;
 
 }
-
-.category-list {
-  text-decoration: none;
-  margin-right: 3vw;
-  color: #333333;
-}
-
-.brand-list {
-  text-decoration: none;
-  color: #333333;
-}
-
-.lists-right {
-  display: flex;
-  list-style: none;
-  align-items: flex-end;
-}
-
 
 .user-nickname {
   text-decoration: none;
