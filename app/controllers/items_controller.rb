@@ -2,7 +2,8 @@ class ItemsController < ApplicationController
   before_action :authenticate_user!, only: [:new, :edit, :destroy]
   before_action :move_to_index, only: [:edit, :update]
   before_action :item_find, only: [:show, :edit, :update]
-  before_action :purchase_all, only: [:index, :show]
+  before_action :purchase_all, only: [:index, :show, :search]
+  before_action :set_q, only: [:index, :show, :search]
 
   def index
     @items = Item.all.order('created_at DESC')
@@ -48,14 +49,17 @@ class ItemsController < ApplicationController
     redirect_to root_path
   end
 
-  def search
+  def search_tag
     return nil if params[:keyword] == ""
     tag = Tag.where(['tag_name LIKE ?', "%#{params[:keyword]}%"] )
     render json:{ keyword: tag }
   end
-  
-  private
 
+  def search
+    @items = @q.result.order('created_at DESC')
+  end
+
+  private
   def item_form_params
     params.require(:item_form).permit(:name, :description, :price, :category_id, :state_id, :shipping_cost_id, :prefecture_id,
                                  :shipping_day_id, :image, :tag_name).merge(user_id: current_user.id)
@@ -73,5 +77,9 @@ class ItemsController < ApplicationController
 
   def purchase_all
     @purchase = Purchase.all
+  end
+
+  def set_q
+    @q = Item.ransack(params[:q])
   end
 end
