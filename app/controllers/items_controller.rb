@@ -50,9 +50,10 @@ class ItemsController < ApplicationController
   end
 
   def search_tag
-    return nil if params[:keyword] == ""
-    tag = Tag.where(['tag_name LIKE ?', "%#{params[:keyword]}%"] )
-    render json:{ keyword: tag }
+    return nil if params[:keyword] == ''
+
+    tag = Tag.where(['tag_name LIKE ?', "%#{params[:keyword]}%"])
+    render json: { keyword: tag }
   end
 
   def search
@@ -60,9 +61,10 @@ class ItemsController < ApplicationController
   end
 
   private
+
   def item_form_params
     params.require(:item_form).permit(:name, :description, :price, :category_id, :state_id, :shipping_cost_id, :prefecture_id,
-                                 :shipping_day_id, :image, :tag_name).merge(user_id: current_user.id)
+                                      :shipping_day_id, :image, :tag_name).merge(user_id: current_user.id)
   end
 
   def move_to_index
@@ -82,7 +84,7 @@ class ItemsController < ApplicationController
   def set_q
     if params[:q]&.dig(:name_or_description_or_tags_tag_name)
       squished_keyword = params[:q][:name_or_description_or_tags_tag_name].squish
-      params[:q][:name_or_description_or_tags_tag_name_cont_any] = squished_keyword.split(" ")
+      params[:q][:name_or_description_or_tags_tag_name_cont_any] = squished_keyword.split(' ')
     end
     @q = Item.ransack(params[:q])
   end
